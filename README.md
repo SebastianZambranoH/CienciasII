@@ -1,4 +1,3 @@
-```md
 # Ciencias de la Computación II
 
 Repositorio destinado al almacenamiento y organización de los trabajos, talleres, ejercicios y proyectos desarrollados durante el curso de Ciencias de la Computación II.
