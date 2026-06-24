@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class GeneradorPseudoaleatorio {
 
     //Valores predeterminados para probar la formula, Java usa valores tipo long, para siplificarlo se usan valores enteros
-    //Se usa un rango de 0 a 100 para que los numeros generados sean mas faciles de leer y analizar
+    //Se usa un rango de 0 a 1000 para que los numeros generados sean mas faciles de leer y analizar
     //Se usan numeros primos para el multiplicador y el incremento, y un número primo para el módulo, para mejorar la distribución de los números generados
     private static final int MULTIPLICADOR = 193;
     private static final int INCREMENTO = 103;
