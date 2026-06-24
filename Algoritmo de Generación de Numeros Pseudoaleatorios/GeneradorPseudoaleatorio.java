@@ -23,7 +23,7 @@ public class GeneradorPseudoaleatorio {
     public static void main(String[] args) {     
         for (int i = 1; i <= 10; i++) {
             //Creamos el generador una sola vez por cada semilla
-            MiGeneradorPseudoaleatorio gen = new MiGeneradorPseudoaleatorio(i);
+            GeneradorPseudoaleatorio gen = new GeneradorPseudoaleatorio(i);
             System.out.print("Con la semilla " + i + " los numeros aleatorios generados son: ");
             System.out.print(gen.siguienteNumeroEntero() + ", ");
             System.out.print(gen.siguienteNumeroEntero() + ", ");
