@@ -1,5 +1,3 @@
-#pip install scikit-learn
-#pip install osmnx networkx shapely matplotlib folium scipy
 import random
 import osmnx as ox 
 import networkx as nx
@@ -234,7 +232,7 @@ for nodo in G.nodes():
             colores_nodos_estaticos.append('#FF474C')   # Rojo para hospitales
             tamaños_nodos_estaticos.append(100)
         elif tipo == 'emergencia':
-            colores_nodos_estaticos.append('#8B0000')   # Morado para emergencias críticas
+            colores_nodos_estaticos.append('#8B0000')   # Rojo oscuro para emergencias críticas
             tamaños_nodos_estaticos.append(110)         # Un poco más grande para resaltar
         elif tipo == 'ambulancia':
             colores_nodos_estaticos.append('#F39C12')   # Naranja para ambulancias móviles
@@ -247,19 +245,36 @@ for nodo in G.nodes():
         colores_nodos_estaticos.append('#BDC3C7')       # Gris claro para los nodos normales
         tamaños_nodos_estaticos.append(15)
 
-print("Generando vista clásica estática con el nuevo ecosistema de vehículos...")
-
 # Dibujar grafo clasico
+colores_aristas = []
+grosores_aristas = []
+
+for u, v, k, data in G.edges(keys=True, data=True):
+    velocidad = data.get('speed_kph', 30)
+    
+    # Clasificación idéntica a la del otro mapa para mantener coherencia
+    if velocidad <= 16:
+        colores_aristas.append('#E74C3C')
+        grosores_aristas.append(2.5)
+    elif velocidad <= 26:
+        colores_aristas.append('#F1C40F')
+        grosores_aristas.append(1.8)
+    else:
+        colores_aristas.append('#2ECC71')
+        grosores_aristas.append(1.2)
+
+print("Generando vista de red con tráfico y direcciones sobre el grafo...")
+
 fig, ax = ox.plot_graph(
     G, 
     node_color=colores_nodos_estaticos, 
     node_size=tamaños_nodos_estaticos, 
-    edge_color='#E5E7E9', 
-    edge_linewidth=1.0,
-    bgcolor='#2C3E50',
+    edge_color=colores_aristas,          # Lista de colores de tráfico aplicada aquí
+    edge_linewidth=grosores_aristas,     # Grosores dinámicos por importancia/congestión
+    bgcolor='#1A252F',                   # Fondo más oscuro para que resalten los colores vivos
     show=True,
     close=False
 )
 
-fig.savefig("vista_clasica_proyecto.png", dpi=300, bbox_inches='tight')
-print("Imagen guardada como 'vista_clasica_proyecto.png'")
+fig.savefig("grafo_trafico_bogota.png", dpi=300, bbox_inches='tight')
+print("¡Grafo guardado como 'grafo_trafico_bogota.png'!")
